@@ -16,25 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::redirect('/', '/home');
-Route::view('home', 'app.dashboard')->name('dashboard');
-
-
 
 Auth::routes();
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware('auth')->group(function () {
+    Route::view('about', 'about')->name('about');
 
-
-
-Route::group([
-    'prefix' => 'app',
-    'as' => 'app.',
-//    'middleware' => ['auth', 'admin']
-], function() {
-    Route::redirect('/', '/app/dashboard');
-    Route::view('dashboard', 'app.dashboard')->name('dashboard');
+    Route::resource('users', \App\Http\Controllers\UserController::class);
+    Route::resource('centers', \App\Http\Controllers\CenterController::class);
+    Route::resource('vehicles', \App\Http\Controllers\VehicleController::class);
 });
-
