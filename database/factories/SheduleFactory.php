@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Pickup;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SheduleFactory extends Factory
@@ -14,7 +16,8 @@ class SheduleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'pickup_id' => (Pickup::factory()->create())->id,
+            'time' => Carbon::now()->addMinute(),
         ];
     }
 }

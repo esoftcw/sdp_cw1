@@ -15,6 +15,9 @@ class CreateShedulesTable extends Migration
     {
         Schema::create('shedules', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pickup_id');
+            $table->dateTime('time');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

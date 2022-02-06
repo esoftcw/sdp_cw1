@@ -19,4 +19,8 @@ class Address extends Model
         return $this->hasOne(Center::class);
     }
 
+    public function pickups(){
+        return $this->hasMany(Pickup::class);
+    }
+
 }

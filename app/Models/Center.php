@@ -19,4 +19,12 @@ class Center extends Model
         return $this->belongsTo(Address::class);
     }
 
+    public function pickups(){
+        return $this->hasMany(Pickup::class);
+    }
+
+    public function deliveries(){
+        return $this->hasMany(Delivery::class);
+    }
+
 }

@@ -15,6 +15,12 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('delivery_id');
+            $table->integer('weight')->nullable();
+            $table->integer('width')->nullable();
+            $table->integer('height')->nullable();
+            $table->integer('length')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
