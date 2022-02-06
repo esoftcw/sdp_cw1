@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AddressFactory extends Factory
@@ -14,7 +15,8 @@ class AddressFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'city_id' => (City::factory()->create())->id,
+            'address' => $this->faker->streetAddress,
         ];
     }
 }
