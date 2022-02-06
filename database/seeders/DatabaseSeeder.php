@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ProvinceSeeder::class);
+        $this->call(DistrictSeeder::class);
+        $this->call(CitiesSeeder::class);
         User::factory()->create([
             'name' => 'Arafath',
             'email' => 'arafath@gmail.com'
