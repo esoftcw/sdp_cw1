@@ -22,9 +22,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
-    Route::view('about', 'about')->name('about');
-
     Route::resource('users', \App\Http\Controllers\UserController::class);
     Route::resource('centers', \App\Http\Controllers\CenterController::class);
     Route::resource('vehicles', \App\Http\Controllers\VehicleController::class);
 });
+
+Route::resource('pickups', \App\Http\Controllers\PickupController::class);

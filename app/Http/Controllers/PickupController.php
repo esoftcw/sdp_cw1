@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Pickup;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class PickupController extends Controller
      */
     public function index()
     {
-        //
+        $cities = City::limit(15)->get();
+        return view('pickups.form', compact('cities'));
     }
 
     /**
@@ -24,7 +26,8 @@ class PickupController extends Controller
      */
     public function create()
     {
-        //
+        $cities = \App\Models\City::limit(15)->get();
+        return view('pickups.form', compact('cities'));
     }
 
     /**
@@ -35,7 +38,24 @@ class PickupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $city = City::find($request->sender_city_id);
+
+        $lat = $city->latitude;
+        $lon = $city->longitude;
+
+/*
+        $data = DB::table("users")
+            ->select("users.id"
+                ,DB::raw("6371 * acos(cos(radians(" . $lat . "))
+                * cos(radians(users.lat))
+                * cos(radians(users.lon) - radians(" . $lon . "))
+                + sin(radians(" .$lat. "))
+                * sin(radians(users.lat))) AS distance"))
+            ->groupBy("users.id")
+            ->get();
+
+        dd($data);
+*/
     }
 
     /**

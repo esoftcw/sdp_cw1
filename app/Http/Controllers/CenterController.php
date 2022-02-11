@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Center;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class CenterController extends Controller
@@ -25,7 +27,8 @@ class CenterController extends Controller
      */
     public function create()
     {
-        return view('centers.form');
+        $cities = City::limit(15)->get();
+        return view('centers.form', compact('cities'));
     }
 
     /**
@@ -37,10 +40,20 @@ class CenterController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required'],
+            'name' => 'required',
+            'address' => 'required',
+            'city_id' => 'required'
         ]);
 
-        Center::create($request->all());
+        $address = Address::create([
+            'address' => $request->address,
+            'city_id' => $request->city_id,
+        ]);
+
+        Center::create([
+            'name' => $request->name,
+            'address_id' => $address->id,
+        ]);
 
         return redirect()->route('centers.index')->with('success', 'Added Successfully');
 

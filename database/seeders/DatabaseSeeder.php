@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(ProvinceSeeder::class);
         $this->call(DistrictSeeder::class);
-        $this->call(CitiesSeeder::class);
+        $this->call(CitySeeder::class);
         User::factory()->create([
             'name' => 'Arafath',
             'email' => 'arafath@gmail.com'

@@ -8,6 +8,8 @@
                 @foreach($centers as $center)
                     <tr>
                         <td>{{ $center->name }}</td>
+                        <td>{{ $center->address->address }}</td>
+                        <td>{{ $center->address->city->name }}</td>
                         <td>
                             <x-action route="centers" :id="$center"/>
                         </td>
