@@ -83,14 +83,28 @@
                     autofocus
                 >
             </x-input>
+            <div class="col-md-2" style="margin-top:26px;">
+                <button type="button" id="addReceiverButton" class="btn btn-success btn-sm">Add More </button>
+            </div>
+            <div id="addReceiverSection"></div>
 
-            <x-input icon="fas fa-envelope" field="sender_name">
+            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
+        </form>
+    </div>
+
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <script id="receiver-template" type="text/x-handlebars-template">
+        <div class="delete_receiver" id="delete_receiver">
+            <x-input field="receiver_name">
                 <input
                     type="text"
-                    name="sender_name"
+                    name="receiver_name[]"
                     class="form-control @error('receiver_name') is-invalid @enderror"
                     placeholder="{{ __('Receiver Name') }}"
-                    value="{{ old('receiver_name') }}"
+                    value="@{{ receiver_name }}"
                     required
                     autofocus
                 >
@@ -98,10 +112,10 @@
             <x-input field="receiver_mobile">
                 <input
                     type="text"
-                    name="receiver_mobile"
+                    name="receiver_mobile[]"
                     class="form-control @error('receiver_mobile') is-invalid @enderror"
                     placeholder="{{ __('Receiver Mobile') }}"
-                    value="{{ old('receiver_mobile') }}"
+                    value="@{{ receiver_mobile }}"
                     required
                     autofocus
                 >
@@ -109,17 +123,17 @@
             <x-input field="receiver_address">
                 <input
                     type="text"
-                    name="receiver_address"
+                    name="receiver_address[]"
                     class="form-control @error('receiver_address') is-invalid @enderror"
                     placeholder="{{ __('Receiver Address') }}"
-                    value="{{ old('receiver_address') }}"
+                    value="@{{ receiver_address }}"
                     required
                     autofocus
                 >
             </x-input>
             <x-input field="receiver_city_id">
                 <select
-                    name="receiver_city_id"
+                    name="receiver_city_id[]"
                     class="form-control @error('receiver_city_id') is-invalid @enderror"
                 >
                     @foreach($cities as $city)
@@ -127,9 +141,31 @@
                     @endforeach
                 </select>
             </x-input>
+            <button class="btn btn-danger removeReceiver">Remove</button>
+        </div>
+    </script>
+    <script type="text/javascript">
 
+        $(document).on('click','#addReceiverButton',function(){
+            let receiver_name = $("#receiver_name").val();
+            let receiver_address = $("#receiver_address").val();
+            let receiver_mobile = $("#receiver_mobile").val();
+            let receiver_city_id = $("#receiver_city_id").val();
+            let source = $("#receiver-template").html();
+            let template = Handlebars.compile(source);
 
-            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
-        </form>
-    </div>
+            let data = {
+                receiver_name,
+                receiver_address,
+                receiver_mobile,
+                receiver_city_id
+            }
+            let html = template(data);
+            $("#addReceiverSection").append(html)
+        });
+
+        $(document).on('click','.removeReceiver',function(event){
+            $(this).closest('.delete_receiver').remove();
+        });
+    </script>
 @endsection
