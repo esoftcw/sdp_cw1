@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\CreatePickUpRequestDto;
 use App\Models\City;
 use App\Models\Pickup;
+use App\Services\CreatePickUpRequestService;
 use Illuminate\Http\Request;
 
 class PickupController extends Controller
@@ -36,26 +38,9 @@ class PickupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CreatePickUpRequestService  $service)
     {
-        $city = City::find($request->sender_city_id);
-
-        $lat = $city->latitude;
-        $lon = $city->longitude;
-
-/*
-        $data = DB::table("users")
-            ->select("users.id"
-                ,DB::raw("6371 * acos(cos(radians(" . $lat . "))
-                * cos(radians(users.lat))
-                * cos(radians(users.lon) - radians(" . $lon . "))
-                + sin(radians(" .$lat. "))
-                * sin(radians(users.lat))) AS distance"))
-            ->groupBy("users.id")
-            ->get();
-
-        dd($data);
-*/
+        $service->handle(new CreatePickUpRequestDto($request->all()));
     }
 
     /**
