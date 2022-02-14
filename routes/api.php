@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\PickupRequestController;
+use App\Http\Controllers\Api\PickupController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +17,6 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
 
-    Route::post('/pickup', [PickupRequestController::class, 'create']);
+    Route::post('/pickup', [PickupController::class, 'create']);
 
 });

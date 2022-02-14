@@ -2,15 +2,13 @@
 
 namespace App\Services;
 
-use App\Dtos\CreatePickUpRequestDto;
+use App\Dtos\CreatePickupDto;
 use App\Models\Center;
 use App\Models\City;
 
-class CreatePickUpRequestService
+class CreatePickupService
 {
-
-
-    public function handle(CreatePickUpRequestDto $pickUpRequest)
+    public function handle(CreatePickupDto $pickUpRequest)
     {
         $senderCity = $pickUpRequest->getSenderCity();
         $nearestCenter = Center::findNearestByCity($senderCity);

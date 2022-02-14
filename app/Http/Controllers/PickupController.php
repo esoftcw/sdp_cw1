@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\CreatePickUpRequestDto;
+use App\Dtos\CreatePickupDto;
 use App\Models\City;
 use App\Models\Pickup;
-use App\Services\CreatePickUpRequestService;
+use App\Services\CreatePickupService;
 use Illuminate\Http\Request;
 
 class PickupController extends Controller
@@ -38,9 +38,9 @@ class PickupController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, CreatePickUpRequestService  $service)
+    public function store(Request $request, CreatePickupService $service)
     {
-        $service->handle(new CreatePickUpRequestDto($request->all()));
+        $service->handle(new CreatePickupDto($request->all()));
     }
 
     /**

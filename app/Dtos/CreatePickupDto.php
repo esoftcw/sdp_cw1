@@ -4,7 +4,7 @@ namespace App\Dtos;
 
 use App\Models\City;
 
-class CreatePickUpRequestDto extends DataTransferObject
+class CreatePickupDto extends DataTransferObject
 {
     //TODO: Add other properties
     public $sender_city_id;
