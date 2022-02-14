@@ -28,8 +28,7 @@ class PickupController extends Controller
      */
     public function create()
     {
-        $cities = \App\Models\City::limit(15)->get();
-        return view('pickups.form', compact('cities'));
+        return view('pickups.form');
     }
 
     /**

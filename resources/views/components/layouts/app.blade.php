@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
     <!-- Toast style -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    @livewireStyles
     @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -161,7 +162,7 @@
     </script>
 @endif
 
-
+@livewireScripts
 @stack('scripts')
 </body>
 </html>

@@ -40,16 +40,7 @@
                     autofocus
                 >
             </x-input>
-            <x-input field="sender_city_id">
-                <select
-                    name="sender_city_id"
-                    class="form-control @error('sender_city_id') is-invalid @enderror"
-                >
-                    @foreach($cities as $city)
-                        <option value="{{$city->id}}">{{$city->name}}</option>
-                    @endforeach
-                </select>
-            </x-input>
+            <livewire:city-search name="sender_city_id"/>
             <x-input field="package_weight">
                 <input
                     type="number"
@@ -131,16 +122,17 @@
                     autofocus
                 >
             </x-input>
-            <x-input field="receiver_city_id">
-                <select
-                    name="receiver_city_id[]"
-                    class="form-control @error('receiver_city_id') is-invalid @enderror"
-                >
-                    @foreach($cities as $city)
-                        <option value="{{$city->id}}">{{$city->name}}</option>
-                    @endforeach
-                </select>
-            </x-input>
+            <livewire:city-search name="sender_city_id"/>
+{{--            <x-input field="receiver_city_id">--}}
+{{--                <select--}}
+{{--                    name="receiver_city_id[]"--}}
+{{--                    class="form-control @error('receiver_city_id') is-invalid @enderror"--}}
+{{--                >--}}
+{{--                    @foreach($cities as $city)--}}
+{{--                        <option value="{{$city->id}}">{{$city->name}}</option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
+{{--            </x-input>--}}
             <button class="btn btn-danger removeReceiver">Remove</button>
         </div>
     </script>
