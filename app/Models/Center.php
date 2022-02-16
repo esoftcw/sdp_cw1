@@ -45,7 +45,7 @@ class Center extends Model
         ->orderBy('distance_in_km')
         ->limit(5)
         ->get()->first();
-        return Center::find($result->id);
+        return $result;
     }
 
 }

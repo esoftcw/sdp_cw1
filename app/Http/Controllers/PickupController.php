@@ -17,8 +17,8 @@ class PickupController extends Controller
      */
     public function index()
     {
-        $cities = City::limit(15)->get();
-        return view('pickups.form', compact('cities'));
+        $pickups = Pickup::paginate(10);
+        return view('pickups.index', compact('pickups'));
     }
 
     /**
@@ -50,7 +50,7 @@ class PickupController extends Controller
      */
     public function show(Pickup $pickup)
     {
-        //
+
     }
 
     /**
@@ -61,7 +61,7 @@ class PickupController extends Controller
      */
     public function edit(Pickup $pickup)
     {
-        //
+        return view('pickups.form', compact('pickup'));
     }
 
     /**

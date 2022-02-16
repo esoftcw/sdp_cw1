@@ -1,15 +1,19 @@
-<x-layouts.app header="Vehicles">
+<x-layouts.guest>
     <div class="row">
         <div class="col-lg-12">
-            <x-table route="vehicles" :links="$vehicles">
+            <x-table route="pickups" :links="$pickups">
                 <x-slot name="headings">
                     <th>Number</th>
+                    <th>Name</th>
                 </x-slot>
-                @foreach($vehicles as $vehicle)
+                @foreach($pickups as $pickup)
                     <tr>
-                        <td>{{ $vehicle->number }}</td>
+                        <td>{{ $pickup->id }}</td>
+                        <td>{{ $pickup->customer->name }}</td>
+                        <td>{{ $pickup->address->city->name }}</td>
+                        <td>{{ $pickup->center->address->city->name }}</td>
                         <td>
-                            <x-action route="vehicles" :id="$vehicle"/>
+                            <x-action route="pickups" :id="$pickup"/>
                         </td>
                     </tr>
                 @endforeach
@@ -18,4 +22,4 @@
         </div>
     </div>
     <!-- /.row -->
-</x-layouts.app>
+</x-layouts.guest>

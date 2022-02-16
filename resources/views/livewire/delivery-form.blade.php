@@ -1,14 +1,14 @@
 <div>
-    <button type="button" class="btn btn-info" wire:click="add({{$i}})">Add</button>
     @foreach($inputs as $input)
-        <div class="delete_receiver">
+        <div>
+            <hr>
             <x-input field="receiver_name">
                 <input
                     type="text"
-                    name="receiver_name[]"
+                    name="receivers[{{$input}}][name]"
                     class="form-control @error('receiver_name') is-invalid @enderror"
                     placeholder="{{ __('Receiver Name') }}"
-                    value="@{{ receiver_name }}"
+                    value="{{ $receiver_name }}"
                     required
                     autofocus
                 >
@@ -16,10 +16,10 @@
             <x-input field="receiver_mobile">
                 <input
                     type="text"
-                    name="receiver_mobile[]"
+                    name="receivers[{{$input}}][mobile]"
                     class="form-control @error('receiver_mobile') is-invalid @enderror"
                     placeholder="{{ __('Receiver Mobile') }}"
-                    value="@{{ receiver_mobile }}"
+                    value="{{ $receiver_mobile }}"
                     required
                     autofocus
                 >
@@ -27,19 +27,19 @@
             <x-input field="receiver_address">
                 <input
                     type="text"
-                    name="receiver_address[]"
+                    name="receivers[{{$input}}][address]"
                     class="form-control @error('receiver_address') is-invalid @enderror"
                     placeholder="{{ __('Receiver Address') }}"
-                    value="@{{ receiver_address }}"
+                    value="{{ $receiver_address }}"
                     required
                     autofocus
                 >
             </x-input>
-            <livewire:city-search :wire:key="$input" name="receiver_city_id[]"/>
+            <livewire:city-search :wire:key="$input" name="receivers[{{$input}}][city_id]"/>
             <x-input field="package_weight">
                 <input
                     type="number"
-                    name="package_weight"
+                    name="receivers[{{$input}}][packages][0][weight]"
                     class="form-control @error('package_weight') is-invalid @enderror"
                     placeholder="{{ __('Package Weight') }}"
                     value="{{ old('package_weight') }}"
@@ -50,7 +50,7 @@
             <x-input field="package_note">
                 <input
                     type="text"
-                    name="package_note[]"
+                    name="receivers[{{$input}}][packages][0][note]"
                     class="form-control @error('package_note') is-invalid @enderror"
                     placeholder="{{ __('Package Note') }}"
                     value="{{ old('package_note') }}"
@@ -58,20 +58,43 @@
                     autofocus
                 >
             </x-input>
-            <x-input field="package_size">
+            <x-input field="package_width">
                 <input
                     type="number"
-                    name="package_size"
+                    name="receivers[{{$input}}][packages][0][width]"
                     class="form-control @error('package_size') is-invalid @enderror"
-                    placeholder="{{ __('Package Size') }}"
+                    placeholder="{{ __('Package Width') }}"
+                    value="{{ old('package_size') }}"
+                    required
+                    autofocus
+                >
+            </x-input>
+            <x-input field="package_height">
+                <input
+                    type="number"
+                    name="receivers[{{$input}}][packages][0][height]"
+                    class="form-control @error('package_size') is-invalid @enderror"
+                    placeholder="{{ __('Package Width') }}"
+                    value="{{ old('package_size') }}"
+                    required
+                    autofocus
+                >
+            </x-input>
+            <x-input field="package_length">
+                <input
+                    type="number"
+                    name="receivers[{{$input}}][packages][0][length]"
+                    class="form-control @error('package_size') is-invalid @enderror"
+                    placeholder="{{ __('Package Width') }}"
                     value="{{ old('package_size') }}"
                     required
                     autofocus
                 >
             </x-input>
             @if(count($inputs) > 1)
-                <button type="button" class="btn btn-danger" wire:click="remove({{$input}})">Remove</button>
+                <button type="button" class="btn btn-danger mb-2" wire:click="remove({{$input}})">Remove</button>
             @endif
         </div>
     @endforeach
+    <button type="button" class="btn btn-info mb-2" wire:click="add({{$i}})">Add</button>
 </div>

@@ -21,6 +21,7 @@ class CreatePackagesTable extends Migration
             $table->integer('height')->nullable();
             $table->integer('length')->nullable();
             $table->string('note')->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

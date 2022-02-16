@@ -10,16 +10,13 @@ class CitySearch extends Component
 
     public $query = '';
     public $searchResults = '';
-    public $name;
-
-    public $city_id = null;
     public $city = null;
+    public $name = null;
 
-    public function selectCity($id, $name){
+    public function selectCity($id){
         $this->query = '';
         $this->searchResults = '';
-        $this->city_id = $id;
-        $this->city = $name;
+        $this->city = City::find($id);
     }
 
 

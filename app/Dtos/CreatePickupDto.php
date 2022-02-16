@@ -2,11 +2,8 @@
 
 namespace App\Dtos;
 
-use App\Models\Address;
-use App\Models\Center;
 use App\Models\City;
-use App\Models\Customer;
-use App\Models\Pickup;
+use App\Models\Package;
 
 class CreatePickupDto extends DataTransferObject
 {
@@ -15,37 +12,24 @@ class CreatePickupDto extends DataTransferObject
     public $sender_mobile;
     public $sender_address;
     public $sender_city_id;
-    public $receiver_name;
-    public $receiver_mobile;
-    public $receiver_address;
-    public $receiver_city_id;
-    public $package_note;
-    public $package_weight;
-    public $package_size;
+    public $receivers;
 
-    public function __construct(array $parameters = [])
-    {
-        parent::__construct($parameters);
-        $customer = Customer::create([
-            'name' => $this->sender_name,
-            'mobile' => $this->sender_mobile,
-        ]);
-
-        $address = Address::create([
-            'city_id' => $this->sender_city_id,
-            'address' => $this->sender_address,
-        ]);
-
-        $pickup = Pickup::create([
-            'customer_id' => $customer->id,
-            'address_id' => $address->id,
-            'center_id' => '15',
-        ]);
-        return 'created';
-    }
 
     public function getSenderCity(): City
     {
         return City::find($this->sender_city_id);
+    }
+
+    public function price($distance, Package $package){
+        $starting_price = 100;
+        $additional_km_price = 1;
+        $additional_kg_price = 50;
+
+        $distance_price = (max($distance, 1) - 1) * $additional_km_price;
+        $volume_weight = ($package->width * $package->height * $package->length)/5000;
+        $chargable_weight = max($volume_weight, $package->weight/1000, 1) - 1;
+        $weight_price = $chargable_weight * $additional_kg_price;
+        $price = $starting_price + $distance_price + $weight_price;
+        return round($price);
     }
 }

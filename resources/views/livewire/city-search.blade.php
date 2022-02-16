@@ -9,7 +9,7 @@
         <div class="list-group">
             @foreach($searchResults as $searchResult)
                 <a
-                    wire:click="selectCity({{ $searchResult->searchable->id }}, '{{$searchResult->title}}')"
+                    wire:click="selectCity({{ $searchResult->searchable->id }})"
                     class="list-group-item"
                 >
                     {{$searchResult->title}}
@@ -22,6 +22,6 @@
         class="form-control @error('{{$name}}') is-invalid @enderror"
         required
     >
-        <option selected value="{{$city_id}}">{{$city}}</option>
+        <option selected value="{{$city->id}}">{{$city->name}}</option>
     </select>
 </x-input>

@@ -91,10 +91,20 @@ class CenterController extends Controller
     public function update(Request $request, Center $center)
     {
         $request->validate([
-            'name' => ['required'],
+            'name' => 'required',
+            'address' => 'required',
+            'city_id' => 'required'
         ]);
 
-        $center->update($request->all());
+        $center->address->update([
+           'address' => $request->address,
+           'city_id' => $request->city_id,
+        ]);
+
+        $center->update([
+            'name' => $request->name,
+        ]);
+
 
         return redirect()->route('centers.index')->with('success', 'Updated Successfully');
     }
