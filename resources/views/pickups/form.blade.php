@@ -35,7 +35,7 @@
             >
         </x-input>
         <livewire:city-search name="sender_city_id" :city="$pickup->address->city"/>
-        <livewire:delivery-form/>
+        <livewire:delivery-form :pickup="$pickup"/>
         <button type="submit" class="btn btn-primary btn-block">{{ __('Submit') }}</button>
     </form>
 </x-layouts.guest>

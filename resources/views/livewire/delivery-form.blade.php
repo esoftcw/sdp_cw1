@@ -8,7 +8,7 @@
                     name="receivers[{{$input}}][name]"
                     class="form-control @error('receiver_name') is-invalid @enderror"
                     placeholder="{{ __('Receiver Name') }}"
-                    value="{{ $receiver_name }}"
+                    value="{{ $pickup['deliveries'][$input]['name'] }}"
                     required
                     autofocus
                 >
@@ -19,7 +19,7 @@
                     name="receivers[{{$input}}][mobile]"
                     class="form-control @error('receiver_mobile') is-invalid @enderror"
                     placeholder="{{ __('Receiver Mobile') }}"
-                    value="{{ $receiver_mobile }}"
+                    value="{{ $pickup['deliveries'][$input]['mobile'] }}"
                     required
                     autofocus
                 >
@@ -30,19 +30,19 @@
                     name="receivers[{{$input}}][address]"
                     class="form-control @error('receiver_address') is-invalid @enderror"
                     placeholder="{{ __('Receiver Address') }}"
-                    value="{{ $receiver_address }}"
+                    value="{{ $pickup['deliveries'][$input]['address']['address'] }}"
                     required
                     autofocus
                 >
             </x-input>
-            <livewire:city-search :wire:key="$input" name="receivers[{{$input}}][city_id]"/>
+            <livewire:city-search :wire:key="$input" name="receivers[{{$input}}][city_id]" :city="$pickup['deliveries'][$input]['address']['city']"/>
             <x-input field="package_weight">
                 <input
                     type="number"
                     name="receivers[{{$input}}][packages][0][weight]"
                     class="form-control @error('package_weight') is-invalid @enderror"
                     placeholder="{{ __('Package Weight') }}"
-                    value="{{ old('package_weight') }}"
+                    value="{{ $pickup['deliveries'][$input]['packages'][0]['weight'] }}"
                     required
                     autofocus
                 >
@@ -53,7 +53,7 @@
                     name="receivers[{{$input}}][packages][0][note]"
                     class="form-control @error('package_note') is-invalid @enderror"
                     placeholder="{{ __('Package Note') }}"
-                    value="{{ old('package_note') }}"
+                    value="{{ $pickup['deliveries'][$input]['packages'][0]['note'] }}"
                     required
                     autofocus
                 >
@@ -64,7 +64,7 @@
                     name="receivers[{{$input}}][packages][0][width]"
                     class="form-control @error('package_size') is-invalid @enderror"
                     placeholder="{{ __('Package Width') }}"
-                    value="{{ old('package_size') }}"
+                    value="{{ $pickup['deliveries'][$input]['packages'][0]['width'] }}"
                     required
                     autofocus
                 >
@@ -75,7 +75,7 @@
                     name="receivers[{{$input}}][packages][0][height]"
                     class="form-control @error('package_size') is-invalid @enderror"
                     placeholder="{{ __('Package Width') }}"
-                    value="{{ old('package_size') }}"
+                    value="{{ $pickup['deliveries'][$input]['packages'][0]['height'] }}"
                     required
                     autofocus
                 >
@@ -85,8 +85,8 @@
                     type="number"
                     name="receivers[{{$input}}][packages][0][length]"
                     class="form-control @error('package_size') is-invalid @enderror"
-                    placeholder="{{ __('Package Width') }}"
-                    value="{{ old('package_size') }}"
+                    placeholder="{{ __('Package Length') }}"
+                    value="{{ $pickup['deliveries'][$input]['packages'][0]['length'] }}"
                     required
                     autofocus
                 >
