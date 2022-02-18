@@ -28,15 +28,21 @@ class Delivery extends Model
         return $this->belongsTo(Address::class);
     }
 
-    public function distance(){
-        $distance = GeoFacade::setPoint([$this->address->city->latitude, $this->address->city->longitude])
-            ->setOptions(['units' => ['km']])
-            ->setPoint([$this->pickup->address->city->latitude, $this->pickup->address->city->longitude])
-            ->getDistance();
-
-        return round($distance['1-2']['km']);
-
+    public function distance($unit = 'kilometers') {
+        $theta = $this->pickup->address->city->longitude - $this->address->city->longitude;
+        $distance = (sin(deg2rad($this->pickup->address->city->latitude)) * sin(deg2rad($this->address->city->latitude))) + (cos(deg2rad($this->pickup->address->city->latitude)) * cos(deg2rad($this->address->city->latitude)) * cos(deg2rad($theta)));
+        $distance = acos($distance);
+        $distance = rad2deg($distance);
+        $distance = $distance * 60 * 1.1515;
+        switch($unit) {
+            case 'miles':
+                break;
+            case 'kilometers' :
+                $distance = $distance * 1.609344;
+        }
+        return (round($distance,2));
     }
+
 
 
 }

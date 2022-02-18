@@ -14,8 +14,10 @@ use KMLaravel\GeographicalCalculator\Facade\GeoFacade;
 
 class CreatePickupService
 {
+
     public function handle(CreatePickupDto $pickupDto)
     {
+        $dis = [];
         $customer = Customer::create([
             'name' => $pickupDto->sender_name,
             'mobile' => $pickupDto->sender_mobile,
@@ -32,6 +34,7 @@ class CreatePickupService
             'center_id' => Center::findNearestByCity($pickupDto->getSenderCity())->id,
         ]);
 
+
         foreach ($pickupDto->receivers as $key => $receiver){
             $address = Address::create([
                 'city_id' => $receiver['city_id'],
@@ -47,13 +50,12 @@ class CreatePickupService
                 'price' => 0,
                 'status' => 'pending',
             ]);
-            $distance = GeoFacade::setPoint([$senderAddress->city->latitude, $senderAddress->city->longitude])
-                ->setOptions(['units' => ['km']])
-                ->setPoint([$address->city->latitude, $address->city->longitude])
-                ->getDistance();
+
+            $distance = $pickupDto->distance($senderAddress->city->latitude, $senderAddress->city->longitude, $address->city->latitude, $address->city->longitude);
+
 
             foreach ($receiver['packages'] as $package){
-                $package = Package::create([
+                $pkg = Package::create([
                     'delivery_id' => $delivery->id,
                     'weight' => $package['weight'],
                     'width' => $package['width'],
@@ -62,12 +64,12 @@ class CreatePickupService
                     'note' => $package['note'],
                     'price' => 0
                 ]);
-                $package->update([
-                    'price' => $pickupDto->price($distance['1-2']['km'], $package),
+                $pkg->update([
+                    'price' => $pickupDto->price($distance, $pkg),
                 ]);
             }
-        }
 
+        }
         return redirect()->route('pickups.index');
 
     }

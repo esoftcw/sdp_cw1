@@ -5,7 +5,7 @@
             <input
                 type="text"
                 name="sender_name"
-                class="form-control @error('sender_name') is-invalid @enderror"
+                class="form-control"
                 placeholder="{{ __('Sender Name') }}"
                 value="{{ old('sender_name', $pickup->customer->name) }}"
                 required
@@ -16,22 +16,20 @@
             <input
                 type="text"
                 name="sender_mobile"
-                class="form-control @error('sender_mobile') is-invalid @enderror"
+                class="form-control"
                 placeholder="{{ __('Sender Mobile') }}"
                 value="{{ old('sender_mobile', $pickup->customer->mobile) }}"
                 required
-                autofocus
             >
         </x-input>
         <x-input field="sender_address">
             <input
                 type="text"
                 name="sender_address"
-                class="form-control @error('sender_address') is-invalid @enderror"
+                class="form-control"
                 placeholder="{{ __('Sender Address') }}"
                 value="{{ old('sender_address', $pickup->address->address) }}"
                 required
-                autofocus
             >
         </x-input>
         <livewire:city-search name="sender_city_id" :city="$pickup->address->city"/>

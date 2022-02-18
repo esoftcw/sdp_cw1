@@ -6,43 +6,40 @@
                 <input
                     type="text"
                     name="receivers[{{$input}}][name]"
-                    class="form-control @error('receiver_name') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Receiver Name') }}"
-                    value="{{ $pickup['deliveries'][$input]['name'] }}"
+                    value="{{ $deliveries[$input]['name'] }}"
                     required
-                    autofocus
                 >
             </x-input>
             <x-input field="receiver_mobile">
                 <input
                     type="text"
                     name="receivers[{{$input}}][mobile]"
-                    class="form-control @error('receiver_mobile') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Receiver Mobile') }}"
-                    value="{{ $pickup['deliveries'][$input]['mobile'] }}"
+                    value="{{ $deliveries[$input]['mobile'] }}"
                     required
-                    autofocus
                 >
             </x-input>
             <x-input field="receiver_address">
                 <input
                     type="text"
                     name="receivers[{{$input}}][address]"
-                    class="form-control @error('receiver_address') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Receiver Address') }}"
-                    value="{{ $pickup['deliveries'][$input]['address']['address'] }}"
+                    value="{{ $deliveries[$input]['address']['address'] }}"
                     required
-                    autofocus
                 >
             </x-input>
-            <livewire:city-search :wire:key="$input" name="receivers[{{$input}}][city_id]" :city="$pickup['deliveries'][$input]['address']['city']"/>
+            <livewire:city-search :wire:key="$input" name="receivers[{{$input}}][city_id]" :city="$deliveries[$input]['address']['city']"/>
             <x-input field="package_weight">
                 <input
                     type="number"
                     name="receivers[{{$input}}][packages][0][weight]"
-                    class="form-control @error('package_weight') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Package Weight') }}"
-                    value="{{ $pickup['deliveries'][$input]['packages'][0]['weight'] }}"
+                    value="{{ $deliveries[$input]['packages'][0]['weight'] }}"
                     required
                     autofocus
                 >
@@ -51,20 +48,19 @@
                 <input
                     type="text"
                     name="receivers[{{$input}}][packages][0][note]"
-                    class="form-control @error('package_note') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Package Note') }}"
-                    value="{{ $pickup['deliveries'][$input]['packages'][0]['note'] }}"
+                    value="{{ $deliveries[$input]['packages'][0]['note'] }}"
                     required
-                    autofocus
                 >
             </x-input>
             <x-input field="package_width">
                 <input
                     type="number"
                     name="receivers[{{$input}}][packages][0][width]"
-                    class="form-control @error('package_size') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Package Width') }}"
-                    value="{{ $pickup['deliveries'][$input]['packages'][0]['width'] }}"
+                    value="{{ $deliveries[$input]['packages'][0]['width'] }}"
                     required
                     autofocus
                 >
@@ -73,24 +69,40 @@
                 <input
                     type="number"
                     name="receivers[{{$input}}][packages][0][height]"
-                    class="form-control @error('package_size') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Package Width') }}"
-                    value="{{ $pickup['deliveries'][$input]['packages'][0]['height'] }}"
+                    value="{{ $deliveries[$input]['packages'][0]['height'] }}"
                     required
-                    autofocus
                 >
             </x-input>
             <x-input field="package_length">
                 <input
                     type="number"
                     name="receivers[{{$input}}][packages][0][length]"
-                    class="form-control @error('package_size') is-invalid @enderror"
+                    class="form-control"
                     placeholder="{{ __('Package Length') }}"
-                    value="{{ $pickup['deliveries'][$input]['packages'][0]['length'] }}"
+                    value="{{ $deliveries[$input]['packages'][0]['length'] }}"
                     required
-                    autofocus
                 >
             </x-input>
+            @if($deliveries)
+            <x-input>
+                <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    value="{{ $deliveries[$input]['packages'][0]['price'] }}"
+                >
+            </x-input>
+            <x-input>
+                <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    value="{{ $deliveries[$input]->distance() }}"
+                >
+            </x-input>
+            @endif
             @if(count($inputs) > 1)
                 <button type="button" class="btn btn-danger mb-2" wire:click="remove({{$input}})">Remove</button>
             @endif
