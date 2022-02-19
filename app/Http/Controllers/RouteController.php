@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Center;
 use App\Models\Route;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -27,7 +28,8 @@ class RouteController extends Controller
      */
     public function create()
     {
-        return view('routes.form');
+        $vehicles = Vehicle::all();
+        return view('routes.form', compact('vehicles'));
 
     }
 
@@ -43,7 +45,7 @@ class RouteController extends Controller
             'name' => 'required',
         ]);
         Route::create($request->all());
-        return redirect()->route('routes.index');
+        return redirect()->route('routes.index')->with('success', 'Added Successfully');;
     }
 
     /**
@@ -65,8 +67,9 @@ class RouteController extends Controller
      */
     public function edit(Route $route)
     {
+        $vehicles = Vehicle::all();
         $centers = Center::whereNotIn('id', $route->transits->pluck('center_id'))->get();
-        return view('routes.form', compact('route', 'centers'));
+        return view('routes.form', compact('route', 'centers', 'vehicles'));
     }
 
     /**
@@ -82,7 +85,7 @@ class RouteController extends Controller
             'name' => 'required',
         ]);
         $route->update($request->all());
-        return redirect()->route('routes.index');
+        return redirect()->route('routes.index')->with('success', 'Updated Successfully');;
 
     }
 

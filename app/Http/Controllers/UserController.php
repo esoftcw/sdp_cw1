@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Center;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,9 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public $roles = ['system-admin', 'center-admin', 'driver', 'rider', 'customer'];
+
+
     public function index()
     {
         $users = User::where('id', '!=', auth()->user()->id)->paginate();
@@ -18,14 +22,16 @@ class UserController extends Controller
     }
 
     public function create(){
-        return view('users.form');
+        $roles = $this->roles;
+        $centers = Center::all();
+        return view('users.form', compact('roles', 'centers'));
     }
 
     public function store(Request $request){
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255', Rule::unique('users')],
-            'password' => ['required', 'string', 'confirmed', 'min:8'],
+            'password' => ['required', 'string', 'min:8'],
             'role' => ['required'],
         ]);
 
@@ -37,22 +43,27 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
-        return view('users.form', compact('user'));
+        $roles = $this->roles;
+        $centers = Center::all();
+        return view('users.form', compact('user', 'roles', 'centers'));
     }
 
     public function update(Request $request, User $user){
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255', Rule::unique('users')->ignore($user)],
-            'password' => ['nullable', 'string', 'confirmed', 'min:8'],
+            'password' => ['nullable', 'string', 'min:8'],
             'role' => ['required'],
         ]);
 
         if ($request->password) {
             $user->update(['password' => Hash::make($request->password)]);
         }
+        if ($request->center_id) {
+            $user->centers()->sync($request->center_id);
+        }
 
-        $user->update($request->except(['password']));
+        $user->update($request->except(['password', 'center_id']));
 
         return redirect()->route('users.index')->with('success', 'Updated Successfully');
     }

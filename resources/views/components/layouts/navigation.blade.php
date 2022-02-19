@@ -30,8 +30,17 @@
             </li>
 
             <li class="nav-item">
+                <a href="{{ route('pickups.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-motorcycle"></i>
+                    <p>
+                        {{ __('Pickups') }}
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a href="{{ route('centers.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-location-arrow"></i>
                     <p>
                         {{ __('Centers') }}
                     </p>
@@ -39,7 +48,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('vehicles.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-bus"></i>
                     <p>
                         {{ __('Vehicles') }}
                     </p>
@@ -47,13 +56,13 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('routes.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
+                    <i class="nav-icon fas fa-road"></i>
                     <p>
                         {{ __('Routes') }}
                     </p>
                 </a>
             </li>
-
+            {{--
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-circle nav-icon"></i>
@@ -71,6 +80,8 @@
                     </li>
                 </ul>
             </li>
+            --}}
+
         </ul>
     </nav>
     <!-- /.sidebar-menu -->

@@ -1,8 +1,8 @@
-<x-layouts.app>
+<x-layouts.app header="{{$center ? 'Edit' : 'Add'}} Center">
     <div class="row">
         <div class="col-lg-6">
             <x-form route="centers" :id="$center">
-                <x-input icon="fas fa-user" field="name">
+                <x-input field="name" label="Name">
                     <input
                         type="text"
                         name="name"
@@ -12,7 +12,7 @@
                         required
                     >
                 </x-input>
-                <x-input icon="fas fa-user" field="name">
+                <x-input field="address" label="Address">
                     <input
                         type="text"
                         name="address"
@@ -22,9 +22,7 @@
                         required
                     >
                 </x-input>
-                <x-input field="city_id">
-                    <livewire:city-search  name="city_id" :city="$center->address->city"/>
-                </x-input>
+                <livewire:city-search  name="city_id" :city="$center->address->city"/>
             </x-form>
         </div>
     </div>

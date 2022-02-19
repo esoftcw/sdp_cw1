@@ -14,4 +14,8 @@ class Route extends Model
     public function transits(){
         return $this->hasMany(Transit::class);
     }
+
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
+    }
 }

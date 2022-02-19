@@ -4,6 +4,8 @@
             <x-table route="centers" :links="$centers">
                 <x-slot name="headings">
                     <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
                 </x-slot>
                 @foreach($centers as $center)
                     <tr>

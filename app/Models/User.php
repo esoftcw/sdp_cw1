@@ -43,6 +43,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Center::class);
     }
 
+    public function center(){
+        return $this->centers()->orderBy('id', 'DESC')->first();
+    }
+
     public function customer(){
         return $this->hasOne(Customer::class);
     }

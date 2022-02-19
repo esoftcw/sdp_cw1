@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 
 class VehicleController extends Controller
 {
@@ -26,7 +28,8 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicles.form');
+        $users = User::where('role', 'driver')->get();
+        return view('vehicles.form', compact('users'));
 
     }
 
@@ -67,7 +70,8 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        return view('vehicles.form', compact('vehicle'));
+        $users = User::where('role', 'driver')->get();
+        return view('vehicles.form', compact('vehicle', 'users'));
     }
 
     /**

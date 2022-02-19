@@ -12,6 +12,7 @@ class CreatePickupDto extends DataTransferObject
     public $sender_mobile;
     public $sender_address;
     public $sender_city_id;
+    public $shedule;
     public $receivers;
 
 

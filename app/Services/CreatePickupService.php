@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Delivery;
 use App\Models\Package;
 use App\Models\Pickup;
+use App\Models\Shedule;
 use App\Models\Transit;
 use KMLaravel\GeographicalCalculator\Facade\GeoFacade;
 
@@ -33,6 +34,11 @@ class CreatePickupService
             'customer_id' => $customer->id,
             'address_id' => $senderAddress->id,
             'center_id' => $pickup_center_id,
+        ]);
+
+        Shedule::create([
+            'pickup_id' => $pickup->id,
+            'time' => $pickupDto->shedule,
         ]);
 
         $pickup_routes = Transit::where('center_id', $pickup_center_id)->pluck('route_id')->toArray();

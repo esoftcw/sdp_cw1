@@ -1,12 +1,6 @@
-<div class="input-group mb-3">
+<div class="form-group mb-3">
+    <label>{{$label}}</label>
     {{$slot}}
-    @if($icon)
-    <div class="input-group-append">
-        <div class="input-group-text">
-            <span class="{{$icon}}"></span>
-        </div>
-    </div>
-    @endif
     @error($field)
         <span class="error invalid-feedback">
             {{ $message }}

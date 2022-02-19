@@ -23,13 +23,13 @@ class DatabaseSeeder extends Seeder
         $this->call(DistrictSeeder::class);
         $this->call(CitySeeder::class);
         User::factory()->create([
-            'name' => 'Arafath',
+            'name' => 'Sample Admin',
             'email' => 'arafath@gmail.com'
         ]);
-        Center::factory(20)->create();
-        Vehicle::factory(10)->create();
-        Pickup::factory()->create();
-        Shedule::factory()->create();
-        Package::factory()->create();
+//        Center::factory(20)->create();
+//        Vehicle::factory(10)->create();
+//        Pickup::factory()->create();
+//        Shedule::factory()->create();
+//        Package::factory()->create();
     }
 }

@@ -15,6 +15,7 @@ class CreateRoutesTable extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('vehicle_id');
             $table->string('name');
             $table->timestamps();
         });
