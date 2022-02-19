@@ -70,7 +70,5 @@ class CreatePickupService
             }
 
         }
-        return redirect()->route('pickups.index');
-
     }
 }

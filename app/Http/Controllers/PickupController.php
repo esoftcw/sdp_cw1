@@ -40,6 +40,7 @@ class PickupController extends Controller
     public function store(Request $request, CreatePickupService $service)
     {
         $service->handle(new CreatePickupDto($request->all()));
+        return redirect()->route('pickups.index');
     }
 
     /**
