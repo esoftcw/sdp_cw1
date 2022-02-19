@@ -43,6 +43,10 @@ class Delivery extends Model
         return (round($distance,2));
     }
 
+    public function route(){
+        return $this->belongsTo(Route::class);
+    }
+
 
 
 }

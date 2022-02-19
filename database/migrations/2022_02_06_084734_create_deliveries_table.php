@@ -18,6 +18,7 @@ class CreateDeliveriesTable extends Migration
             $table->foreignId('pickup_id');
             $table->foreignId('address_id');
             $table->foreignId('center_id');
+            $table->foreignId('route_id')->nullable();
             $table->string('name');
             $table->string('mobile');
             $table->float('price')->default(0);

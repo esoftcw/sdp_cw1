@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Delivery;
 use App\Models\Package;
 use App\Models\Pickup;
+use App\Models\Transit;
 use KMLaravel\GeographicalCalculator\Facade\GeoFacade;
 
 class CreatePickupService
@@ -17,7 +18,6 @@ class CreatePickupService
 
     public function handle(CreatePickupDto $pickupDto)
     {
-        $dis = [];
         $customer = Customer::create([
             'name' => $pickupDto->sender_name,
             'mobile' => $pickupDto->sender_mobile,
@@ -28,11 +28,15 @@ class CreatePickupService
             'address' => $pickupDto->sender_address,
         ]);
 
+        $pickup_center_id = Center::findNearestByCity($pickupDto->getSenderCity())->id;
         $pickup = Pickup::create([
             'customer_id' => $customer->id,
             'address_id' => $senderAddress->id,
-            'center_id' => Center::findNearestByCity($pickupDto->getSenderCity())->id,
+            'center_id' => $pickup_center_id,
         ]);
+
+        $pickup_routes = Transit::where('center_id', $pickup_center_id)->pluck('route_id')->toArray();
+
 
 
         foreach ($pickupDto->receivers as $key => $receiver){
@@ -41,10 +45,15 @@ class CreatePickupService
                 'address' => $receiver['address'],
             ]);
 
+            $delivery_center_id = Center::findNearestByCity(City::find($receiver['city_id']))->id;
+            $delivery_routes = Transit::where('center_id', $delivery_center_id)->pluck('route_id')->toArray();
+            $route_id = array_values(array_intersect($pickup_routes, $delivery_routes))[0];
+
             $delivery = Delivery::create([
                 'pickup_id' => $pickup->id,
                 'address_id' => $address->id,
-                'center_id' => Center::findNearestByCity(City::find($receiver['city_id']))->id,
+                'route_id' => $route_id,
+                'center_id' => $delivery_center_id,
                 'name' => $receiver['name'],
                 'mobile' => $receiver['mobile'],
                 'price' => 0,

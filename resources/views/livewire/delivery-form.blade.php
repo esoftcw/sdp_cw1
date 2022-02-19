@@ -102,6 +102,14 @@
                     value="{{ $deliveries[$input]->distance() }}"
                 >
             </x-input>
+            <x-input>
+                <input
+                    type="text"
+                    readonly
+                    class="form-control"
+                    value="{{ $deliveries[$input]->route->name}}"
+                >
+            </x-input>
             @endif
             @if(count($inputs) > 1)
                 <button type="button" class="btn btn-danger mb-2" wire:click="remove({{$input}})">Remove</button>

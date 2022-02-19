@@ -12,6 +12,7 @@
                         <td>{{ $pickup->customer->name }}</td>
                         <td>{{ $pickup->address->city->name }}</td>
                         <td>{{ $pickup->center->address->city->name }}</td>
+                        <td>{{ $pickup->route->name }}</td>
                         <td>
                             <x-action route="pickups" :id="$pickup"/>
                         </td>
