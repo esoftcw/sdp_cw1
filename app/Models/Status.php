@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Package extends Model
+class Status extends Model
 {
     use HasFactory;
 
@@ -15,7 +15,7 @@ class Package extends Model
         return $this->belongsTo(Delivery::class);
     }
 
-    public function volumeWeight(){
-        return ($this->width * $this->height * $this->length/5);
+    public function statusValue(){
+        return ucwords(str_replace('_', ' ', $this->status));
     }
 }

@@ -47,6 +47,11 @@ class Delivery extends Model
         return $this->belongsTo(Route::class);
     }
 
+    public function statuses(){
+        return $this->hasMany(Status::class);
+    }
+
+
 
 
 }

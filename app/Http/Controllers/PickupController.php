@@ -18,7 +18,7 @@ class PickupController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::whereNull('rider_id');
+        $pickups = Pickup::query();
 
         if(auth()->user()->role == 'system-admin'){
             $pickups = $pickups;
