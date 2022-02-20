@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RouteFactory extends Factory
@@ -14,7 +15,8 @@ class RouteFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name,
+            'vehicle_id' => Vehicle::factory()->create()->id,
         ];
     }
 }

@@ -19,10 +19,22 @@ class CreatePickupService
 
     public function handle(CreatePickupDto $pickupDto)
     {
-        $customer = Customer::create([
-            'name' => $pickupDto->sender_name,
-            'mobile' => $pickupDto->sender_mobile,
-        ]);
+        if(auth()->user()->role != 'customer'){
+            $customer = Customer::create([
+                'name' => $pickupDto->sender_name,
+                'mobile' => $pickupDto->sender_mobile,
+            ]);
+        } else {
+            if(auth()->user()->customer->id){
+               $customer = auth()->user()->customer;
+            } else {
+                $customer = Customer::create([
+                    'name' => $pickupDto->sender_name,
+                    'mobile' => $pickupDto->sender_mobile,
+                    'user_id' => auth()->user()->id,
+                ]);
+            }
+        }
 
         $senderAddress = Address::create([
             'city_id' => $pickupDto->sender_city_id,

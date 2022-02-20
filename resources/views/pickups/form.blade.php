@@ -15,6 +15,21 @@
                         >
                     </x-input>
                 </div>
+                @if(auth()->user()->role != 'customer')
+                <div class="col-6">
+                    <x-input field="rider_id" label="Rider">
+                        <select
+                            name="rider_id"
+                            class="form-control @error('rider_id') is-invalid @enderror"
+                        >
+                            <option value="">Select Rider</option>
+                            @foreach(riders() as $rider)
+                                <option {{old('rider_id', $pickup->rider_id) == $rider->id ? 'selected' : ''}} value="{{$rider->id}}">{{$rider->name}}</option>
+                            @endforeach
+                        </select>
+                    </x-input>
+                </div>
+                @endif
                 <div class="col-6">
                     <x-input field="sender_name" label="Sender Name">
                         <input

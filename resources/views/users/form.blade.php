@@ -37,7 +37,7 @@
                         @endforeach
                     </select>
                 </x-input>
-                @if(in_array($user->role, ['center-admin', 'driver']))
+                @if(in_array($user->role, ['center-admin', 'rider']))
                 <x-input field="center_id" label="Center">
                     <select
                         name="center_id"
@@ -45,7 +45,7 @@
                     >
                         <option value="">Select Center</option>
                         @foreach($centers as $center)
-                            <option {{old('center_id', $user->center()->id) == $center->id ? 'selected' : ''}} value="{{$center->id}}">{{$center->name}}</option>
+                            <option {{old('center_id', $user->center_id) == $center->id ? 'selected' : ''}} value="{{$center->id}}">{{$center->name}}</option>
                         @endforeach
                     </select>
                 </x-input>

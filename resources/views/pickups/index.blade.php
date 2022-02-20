@@ -21,9 +21,11 @@
                         <td>{{ $pickup->address->city->name }}</td>
                         <td>{{ $pickup->center->name}}</td>
                         <td>{{ $pickup->center->address->city->name }}</td>
+                        @if(auth()->user()->role != 'customer')
                         <td>
                             <x-action route="pickups" :id="$pickup"/>
                         </td>
+                        @endif
                     </tr>
                 @endforeach
             </x-table>

@@ -1,7 +1,7 @@
-<x-layouts.guest :title="__('Login')">
+<x-layouts.guest :title="__('Register')">
     <form method="POST" action="{{ route('register') }}">
         @csrf
-        <x-input icon="fas fa-user" field="name">
+        <x-input field="name" label="Name">
             <input
                 type="text"
                 name="name"
@@ -13,7 +13,7 @@
             >
         </x-input>
 
-        <x-input icon="fas fa-envelope" field="email">
+        <x-input field="email" label="Email">
             <input
                 type="email"
                 name="email"
@@ -24,7 +24,7 @@
             >
         </x-input>
 
-        <x-input icon="fas fa-lock" field="password">
+        <x-input field="password" label="Password">
             <input
                 type="password"
                 name="password"
@@ -35,21 +35,10 @@
             >
         </x-input>
 
-        <x-input icon="fas fa-lock" field="password">
-            <input
-                type="password"
-                name="password_confirmation"
-                class="form-control @error('password_confirmation') is-invalid @enderror"
-                placeholder="{{ __('Confirm Password') }}"
-                value="{{ old('password_confirmation') }}"
-                required
-            >
-        </x-input>
-
-        <div class="row">
-            <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block">{{ __('Register') }}</button>
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary btn-block">{{ __('Register') }}</button>
     </form>
+    <p class="mt-2">
+        <a href="{{ route('login') }}">{{ __('Already have an account ? Login') }}</a>
+    </p>
+
 </x-layouts.guest>

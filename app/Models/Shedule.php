@@ -14,4 +14,20 @@ class Shedule extends Model
     public function pickup(){
         return $this->belongsTo(Pickup::class);
     }
+//
+//    protected static function booted()
+//    {
+//        static::created(function ($shedule) {
+//            $pickup = Pickup::find($shedule->pickup_id);
+//            $pickup->update([
+//                'status' => 'pending',
+//            ]);
+//        });
+//        static::updated(function ($shedule) {
+//            $pickup = Pickup::find($shedule->pickup_id);
+//            $pickup->update([
+//                'status' => $shedule->status,
+//            ]);
+//        });
+//    }
 }

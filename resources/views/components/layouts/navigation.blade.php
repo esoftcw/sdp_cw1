@@ -19,49 +19,50 @@
                     </p>
                 </a>
             </li>
-
-            <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-users"></i>
-                    <p>
-                        {{ __('Users') }}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route('pickups.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-motorcycle"></i>
-                    <p>
-                        {{ __('Pickups') }}
-                    </p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a href="{{ route('centers.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-location-arrow"></i>
-                    <p>
-                        {{ __('Centers') }}
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('vehicles.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-bus"></i>
-                    <p>
-                        {{ __('Vehicles') }}
-                    </p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('routes.index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-road"></i>
-                    <p>
-                        {{ __('Routes') }}
-                    </p>
-                </a>
-            </li>
+            @if(auth()->user()->role == 'system-admin')
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            {{ __('Users') }}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('centers.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-location-arrow"></i>
+                        <p>
+                            {{ __('Centers') }}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('vehicles.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bus"></i>
+                        <p>
+                            {{ __('Vehicles') }}
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('routes.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-road"></i>
+                        <p>
+                            {{ __('Routes') }}
+                        </p>
+                    </a>
+                </li>
+            @endif
+            @if(auth()->user()->role = 'center-admin')
+                <li class="nav-item">
+                    <a href="{{ route('pickups.index') }}" class="nav-link">
+                        <i class="nav-icon fas fa-motorcycle"></i>
+                        <p>
+                            {{ __('Pickups') }}
+                        </p>
+                    </a>
+                </li>
+            @endif
             {{--
             <li class="nav-item">
                 <a href="#" class="nav-link">

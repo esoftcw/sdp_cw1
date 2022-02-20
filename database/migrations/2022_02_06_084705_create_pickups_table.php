@@ -18,6 +18,7 @@ class CreatePickupsTable extends Migration
             $table->foreignId('customer_id');
             $table->foreignId('address_id');
             $table->foreignId('center_id');
+            $table->foreignId('rider_id')->nullable();
             $table->timestamps();
         });
     }

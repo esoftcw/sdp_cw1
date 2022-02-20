@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Dtos\CreatePickupDto;
 use App\Models\City;
 use App\Models\Pickup;
+use App\Models\User;
 use App\Services\CreatePickupService;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,18 @@ class PickupController extends Controller
      */
     public function index()
     {
-        $pickups = Pickup::paginate(10);
+        $pickups = Pickup::whereNull('rider_id');
+
+        if(auth()->user()->role == 'system-admin'){
+            $pickups = $pickups;
+        } elseif(auth()->user()->role == 'center-admin'){
+            $pickups = $pickups->where('center_id', auth()->user()->center_id);
+        } elseif(auth()->user()->role == 'customer') {
+            $pickups = $pickups->where('customer_id', auth()->user()->customer->id);
+        }
+
+        $pickups = $pickups->paginate(10);
+
         return view('pickups.index', compact('pickups'));
     }
 
@@ -40,7 +52,7 @@ class PickupController extends Controller
     public function store(Request $request, CreatePickupService $service)
     {
         $service->handle(new CreatePickupDto($request->all()));
-        return redirect()->route('pickups.index');
+        return redirect()->route('pickups.index')->with('success', 'Added Successfully');
     }
 
     /**
@@ -74,7 +86,15 @@ class PickupController extends Controller
      */
     public function update(Request $request, Pickup $pickup)
     {
-        //
+        $request->validate([
+           'rider_id' => 'required'
+        ]);
+
+        $pickup->update([
+            'rider_id' => $request->rider_id,
+        ]);
+        return redirect()->route('pickups.index')->with('success', 'Updated Successfully');
+
     }
 
     /**

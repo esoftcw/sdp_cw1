@@ -39,12 +39,9 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function centers(){
-        return $this->belongsToMany(Center::class);
-    }
 
     public function center(){
-        return $this->centers()->orderBy('id', 'DESC')->first();
+        return $this->belongsTo(Center::class);
     }
 
     public function customer(){

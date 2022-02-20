@@ -1,8 +1,7 @@
 <x-layouts.guest :title="__('Login')">
     <form action="{{ route('login') }}" method="post">
         @csrf
-
-        <x-input icon="fas fa-envelope" field="email">
+        <x-input field="email" label="Email">
             <input
                 type="text"
                 name="email"
@@ -10,10 +9,9 @@
                 placeholder="{{ __('Email') }}"
                 value="{{ old('email') }}"
                 required
-                autofocus
             >
         </x-input>
-        <x-input icon="fas fa-lock" field="password">
+        <x-input field="password" label="Password">
             <input
                 type="password"
                 name="password"
@@ -23,25 +21,15 @@
             >
         </x-input>
 
-        <div class="row">
-            <div class="col-8">
-                <div class="icheck-primary">
-                    <input type="checkbox" id="remember" name="remember">
-                    <label for="remember">
-                        {{ __('Remember Me') }}
-                    </label>
-                </div>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
-            </div>
-            <!-- /.col -->
+        <div class="icheck-primary">
+            <input type="checkbox" id="remember" name="remember">
+            <label for="remember">
+                {{ __('Remember Me') }}
+            </label>
         </div>
+        <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
     </form>
-    @if (Route::has('password.request'))
-        <p class="mb-1">
-            <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
-        </p>
-    @endif
+    <p class="mt-2">
+        <a href="{{ route('register') }}">{{ __('Do not have an account ? Register') }}</a>
+    </p>
 </x-layouts.guest>
