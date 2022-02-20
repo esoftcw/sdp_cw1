@@ -22,7 +22,7 @@
                             name="rider_id"
                             class="form-control @error('rider_id') is-invalid @enderror"
                         >
-                            <option value="">Select Rider</option>
+                            <option value="">Select Vehicle</option>
                             @foreach(riders() as $rider)
                                 <option {{old('rider_id', $pickup->rider_id) == $rider->id ? 'selected' : ''}} value="{{$rider->id}}">{{$rider->name}}</option>
                             @endforeach

@@ -60,7 +60,7 @@
             @foreach($delivery->statuses as $status)
                 <tr>
                     <td>{{$status->created_at}}</td>
-                    <td>{{$status->statusValue()}}</td>
+                    <td>{{statusName($status->status)}}</td>
                 </tr>
             @endforeach
         </table>

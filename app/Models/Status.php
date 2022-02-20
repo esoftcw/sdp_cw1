@@ -15,7 +15,15 @@ class Status extends Model
         return $this->belongsTo(Delivery::class);
     }
 
-    public function statusValue(){
-        return ucwords(str_replace('_', ' ', $this->status));
+
+    protected static function booted()
+    {
+        static::created(function ($status) {
+            $status->delivery->update([
+                'status' => $status->status,
+            ]);
+        });
     }
+
+
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Delivery;
+use App\Models\Pickup;
 use App\Models\Status;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -24,7 +27,12 @@ class StatusController extends Controller
      */
     public function create($status)
     {
-        return view('statuses.form', compact('status'));
+        $vehicles = Vehicle::all();
+        $stats = Status::where('center_id', auth()->user()->center_id)->where('status', $status)->get();
+        $stats = $stats->filter(function ($stat) use ($status){
+           return Delivery::where('status', $status)->get()->count() > 0;
+        });
+        return view('statuses.form', compact('status', 'vehicles', 'stats'));
     }
 
     /**
@@ -33,10 +41,11 @@ class StatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function
-    store(Request $request)
+    public function store(Request $request)
     {
         Status::create($request->all());
+        $request->has('rider_id') ? session()->put('rider_id', $request->rider_id) : null;
+        $request->has('vehicle_id') ? session()->put('vehicle_id', $request->vehicle_id) : null;
         return redirect()->back()->with('success', 'Added Successfully');
     }
 

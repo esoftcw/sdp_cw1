@@ -64,7 +64,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'received_pickup') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('Pickup Receive') }}
                         </p>
@@ -72,7 +71,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'on_transit') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('On Transit') }}
                         </p>
@@ -80,7 +78,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'receive_transit') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('Receive From Transit') }}
                         </p>
@@ -88,7 +85,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'on_delivery') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('Running Sheet') }}
                         </p>
@@ -96,7 +92,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'on_hold') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('On Hold') }}
                         </p>
@@ -104,7 +99,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('statuses.create', 'delivered') }}" class="nav-link">
-                        <i class="nav-icon fas fa-motorcycle"></i>
                         <p>
                             {{ __('Delivered') }}
                         </p>
